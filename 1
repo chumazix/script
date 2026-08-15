@@ -1,0 +1,29 @@
+# 1. Установите Docker
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+newgrp docker
+
+# 2. Установите Kind
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+chmod +x ./kind && sudo mv ./kind /usr/local/bin/
+
+# 3. Установите kubectl
+curl -LO "https://dl.k8s.io/release/v1.28.0/bin/linux/amd64/kubectl"
+chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+
+# 4. Установите Helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh && ./get_helm.sh
+
+# 5. Установите ArgoCD CLI
+curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/download/v2.8.0/argocd-linux-amd64
+chmod +x argocd && sudo mv argocd /usr/local/bin/
+
+# 6. Склонируйте репозитории
+git clone https://github.com/chumazix/magazik-app.git
+git clone https://github.com/chumazix/magazik-gitops.git
+
+# 7. Запустите деплой
+cd ~/magazik-app
+chmod +x deploy.sh
+./deploy.sh
